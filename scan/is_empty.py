@@ -1,5 +1,4 @@
 #!/usr/bin/python3.5
-from time import sleep
 import numpy as np
 import cv2
 import sys
