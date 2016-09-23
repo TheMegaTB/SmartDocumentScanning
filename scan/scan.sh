@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 OUT=${1%/}
 ORIGIN=$(pwd)
 TMP_DIR=$(mktemp -d)
