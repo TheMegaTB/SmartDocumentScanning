@@ -8,7 +8,7 @@ if [ -z $OUT ]; then
     exit 1
 fi
 
-function get_category() {
+function get_category {
     echo "Searching for QR code in $1"
     ZBAR_OUT=$(zbarimg --raw $1 2> /dev/null)
     if [ $? -eq 0 ]; then
@@ -22,7 +22,7 @@ function get_category() {
     fi
 }
 
-function process() {
+function process {
     echo "Processing pages . . ."
     PREV=""
     COUNTER=1
