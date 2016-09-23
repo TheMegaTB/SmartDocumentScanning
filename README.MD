@@ -1,8 +1,9 @@
 Dependencies
 * zbar
 * qrencode
-* python-imgutils
-* python-cv2
+* python-imutils
+* python-opencv
+* python-numpy
 * imagemagick
 * SANE
 * fdupes

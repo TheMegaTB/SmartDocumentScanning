@@ -13,8 +13,10 @@ function process() {
     PREV=""
     COUNTER=1
     for f in $(ls -v *\.tif); do
+        convert "$f" -background black -fuzz 75% -deskew 50% -trim +repage \
+            -limit memory 32 -limit map 64 -units PixelsPerInch -density 72 -quality 60 -format jpg "$f.jpg"
         if [ -z $PREV ]; then
-            PREV=$f
+            PREV="$f.jpg"
             continue
         else
             PAGES=""
@@ -24,12 +26,13 @@ function process() {
             fi
             $ORIGIN/is_empty.py $f
             if [ $? -eq 0 ]; then
-                PAGES="$PAGES $f"
+                PAGES="$PAGES $f.jpg"
             fi
             echo $PAGES
             if [ ! -z "$PAGES" ]; then
-                convert $PAGES -background black -fuzz 75% -deskew 50% -trim +repage \
-                    +append -rotate 0 -limit memory 32 -limit map 64 -units PixelsPerInch -density 72 -quality 60 -format jpg "sheet_$COUNTER.jpg"
+                echo "$PAGES"
+                #convert $PAGES -background black -fuzz 75% -deskew 50% -trim +repage \
+                #    +append -rotate 0 -limit memory 32 -limit map 64 -units PixelsPerInch -density 72 -quality 60 -format jpg "sheet_$COUNTER.jpg"
             else
                 echo "Skipping empty double page!"
             fi
