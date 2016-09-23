@@ -5,3 +5,4 @@ Dependencies
 * python-cv2
 * imagemagick
 * SANE
+* fdupes

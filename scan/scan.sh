@@ -17,7 +17,6 @@ function process() {
             PREV=$f
             continue
         else
-            echo $PREV $f
             PAGES=""
             $ORIGIN/is_empty.py $PREV
             if [ $? -eq 0 ]; then

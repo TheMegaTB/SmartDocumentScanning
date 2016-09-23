@@ -1,8 +1,11 @@
 #!/usr/bin/python3.5
 
-import cv2, imutils, sys, os
-import numpy as np
 from subprocess import call
+
+import cv2
+import imutils
+import numpy as np
+import sys
 
 scale = 35
 A4 = (297, 210)
@@ -12,7 +15,7 @@ A4 = (297, 210)
 
 # Create white canvas
 canvas = np.full((height, width, 3), 255, np.uint8)
-print("Created canvas w/ dimensions " + str((height, width)))
+# print("Created canvas w/ dimensions " + str((height, width)))
 
 # Read the input data
 data = sys.argv[1]
@@ -21,7 +24,7 @@ data = sys.argv[1]
 (qrx, qry) = (int(float(sys.argv[2]) * scale), int(float(sys.argv[3]) * scale))
 (qrw, qrh) = (int(float(sys.argv[4]) * scale), int(float(sys.argv[5]) * scale))
 
-print("Creating QR code @ " + str((qrx, qry)) + " w/ dimensions " + str((qrw, qrh)))
+# print("Creating QR code @ " + str((qrx, qry)) + " w/ dimensions " + str((qrw, qrh)))
 call(["qrencode", "-o", "qr.png", "-lH", "-d600", "-m0", "-s100", data])
 qr = cv2.imread("qr.png")
 
@@ -31,8 +34,12 @@ cv2.rectangle(qr, (1500, 1500), (2000, 2000), (255, 255, 255), -1)  # Draw small
 
 # Add label to info square
 font = cv2.FONT_HERSHEY_SIMPLEX
-font_scale = 5
-font_thickness = 3
+if len(data) > 1:
+    font_scale = 8
+    font_thickness = 8
+else:
+    font_scale = 18
+    font_thickness = 13
 text_size = cv2.getTextSize(data, font, font_scale, font_thickness)[0]
 offset = (int(text_size[0] / 2), int(text_size[1] / 2))
 cv2.putText(qr, data, (1750 - offset[0], 1750 + offset[1]), font, font_scale, (0, 0, 0), font_thickness)
@@ -41,4 +48,4 @@ cv2.putText(qr, data, (1750 - offset[0], 1750 + offset[1]), font, font_scale, (0
 canvas[qry:qry+qrh, qrx:qrx+qrw] = imutils.resize(qr, width=qrw, height=qrh)
 
 cv2.imwrite("out.tif", canvas)
-os.remove("qr.png")
+cv2.imwrite("qr.png", qr)
