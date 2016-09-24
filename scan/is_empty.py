@@ -30,7 +30,7 @@ edge_percentage = edges / pixels * 100
 
 print(edge_percentage)
 
-cv2.imwrite(str(time.time()) + "_edges.tif", canny)
+#cv2.imwrite(str(time.time()) + "_edges.tif", canny)
 
 if edge_percentage > 0.04:
     exit(0)
