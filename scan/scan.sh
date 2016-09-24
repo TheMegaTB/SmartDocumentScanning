@@ -1,6 +1,7 @@
 #!/bin/bash
 MODE=$1
-OUT=${2%/}
+SRC=${2%/}
+OUT=${3%/}
 ORIGIN=$(pwd)
 TMP_DIR=$(mktemp -d)
 
@@ -65,6 +66,8 @@ function process {
 }
 
 if [ "$MODE" == "both" ]; then
+    OUT=${SRC}
+    
     echo $TMP_DIR
     chmod -R 777 $TMP_DIR
     cd $TMP_DIR
@@ -76,10 +79,10 @@ if [ "$MODE" == "both" ]; then
 
     rm -r $TMP_DIR
 elif [ "$MODE" == "scan" ]; then
-    cd ${OUT}
+    cd ${SRC}
     scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 --emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
     cd ${ORIGIN}
 elif [ "$MODE" == "process" ]; then
-    cd ${ORIGIN}
+    cd ${SRC}
     process
 fi
