@@ -5,10 +5,10 @@ OUT=${3%/}
 ORIGIN=$(pwd)
 TMP_DIR=$(mktemp -d)
 
-if [ -z $OUT ]; then
-    echo "Please specify a output directory (absolute path)"
-    exit 1
-fi
+#if [ -z $OUT ]; then
+#    echo "Please specify a output directory (absolute path)"
+#    exit 1
+#fi
 
 function get_category {
     echo "Searching for QR code in $1"
