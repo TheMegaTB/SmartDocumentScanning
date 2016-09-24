@@ -80,7 +80,7 @@ if [ "$MODE" == "both" ]; then
     rm -r $TMP_DIR
 elif [ "$MODE" == "scan" ]; then
     cd ${SRC}
-    if [ ! -e "scan_done" ]; then
+    if [ -e "scan_done" ]; then
         echo "Waiting for output lock"
         inotifywait "scan_done" -e moved_from -e delete
     fi
