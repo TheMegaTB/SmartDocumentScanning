@@ -1,5 +1,6 @@
 #!/bin/bash
-OUT=${1%/}
+MODE=$1
+OUT=${2%/}
 ORIGIN=$(pwd)
 TMP_DIR=$(mktemp -d)
 
@@ -63,15 +64,22 @@ function process {
     done
 }
 
-echo $TMP_DIR
-chmod -R 777 $TMP_DIR
-cd $TMP_DIR
+if [ "$MODE" == "both" ]; then
+    echo $TMP_DIR
+    chmod -R 777 $TMP_DIR
+    cd $TMP_DIR
 
-echo "Scanning images . . ."
-scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 --emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
+    echo "Scanning images . . ."
+    scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 --emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
 
-process
+    process
 
-# mv *.jpg $OUT/
-
-#rm -r $TMP_DIR
+    rm -r $TMP_DIR
+elif [ "$MODE" == "scan" ]; then
+    cd ${OUT}
+    scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 -emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
+    cd ${ORIGIN}
+elif [ "$MODE" == "process" ]; then
+    cd ${ORIGIN}
+    process
+fi
