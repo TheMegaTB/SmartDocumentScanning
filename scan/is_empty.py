@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/python3
 import numpy as np
 import cv2
 import sys
@@ -27,7 +27,7 @@ pixels = canny.size
 edges = (np.asarray(canny) > 0).sum()
 edge_percentage = edges / pixels * 100
 
-# print(edge_percentage)
+print(edge_percentage)
 
 cv2.imwrite(str(time.time()) + "_edges.tif", canny)
 

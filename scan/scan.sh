@@ -74,4 +74,4 @@ process
 
 # mv *.jpg $OUT/
 
-rm -r $TMP_DIR
+#rm -r $TMP_DIR
