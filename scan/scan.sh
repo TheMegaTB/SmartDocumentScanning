@@ -80,7 +80,12 @@ if [ "$MODE" == "both" ]; then
     rm -r $TMP_DIR
 elif [ "$MODE" == "scan" ]; then
     cd ${SRC}
+    if [ ! -e "scan_done" ]; then
+        echo "Waiting for output lock"
+        inotifywait "scan_done" -e moved_from -e delete
+    fi
     scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 --emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
+    touch "scan_done"
     cd ${ORIGIN}
 elif [ "$MODE" == "process" ]; then
     cd ${SRC}
