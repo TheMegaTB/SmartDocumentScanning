@@ -77,7 +77,7 @@ if [ "$MODE" == "both" ]; then
     rm -r $TMP_DIR
 elif [ "$MODE" == "scan" ]; then
     cd ${OUT}
-    scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 -emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
+    scanimage --format=tiff -b --mode Color --resolution=600 --variance=255 --emphasis=100 --ald=yes --source="ADF Duplex" --sleeptimer=1 --bgcolor=Black
     cd ${ORIGIN}
 elif [ "$MODE" == "process" ]; then
     cd ${ORIGIN}
