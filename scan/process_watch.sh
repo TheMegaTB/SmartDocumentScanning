@@ -10,10 +10,8 @@ inotifywait -m "${src}" -e create -e moved_to |
 
             echo "PROCESSING @ ${tmp}"
             mv ${src}/*.tif "${tmp}/"
-            cd "${tmp}"
             ./scan.sh process ${tmp} ${out}
 
-            cd "${pwd}"
             rm "${src}/scan_done"
         fi
     done
