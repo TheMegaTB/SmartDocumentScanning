@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/python2
+from __future__ import division
 import numpy as np
 import cv2
 import sys
