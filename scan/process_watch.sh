@@ -12,5 +12,7 @@ inotifywait -m "${src}" -e create -e moved_to |
             ./scan.sh process ${tmp} ${out}
 
             rm "${src}/scan_done"
+            
+            echo "DONE PROCESSING"
         fi
     done
