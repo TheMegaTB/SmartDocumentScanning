@@ -12,7 +12,7 @@ TMP_DIR=$(mktemp -d)
 
 function get_category {
     echo "Searching for QR code in $1"
-    ZBAR_OUT=$(zbarimg --raw --Sdisable -Sqr.enable $1 2> /dev/null)
+    ZBAR_OUT=$(zbarimg --raw -Sdisable -Sqr.enable $1 2> /dev/null)
     if [ $? -eq 0 ]; then
         CATEGORY=$(sed -n "/\b${ZBAR_OUT}\b/p" ${ORIGIN}/../categories | awk '{print $2}')
         if [ ! -z "${CATEGORY}" ]; then
