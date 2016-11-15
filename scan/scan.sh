@@ -36,7 +36,7 @@ function process {
 	# Get the rotation of the image
 	rotation=$(tesseract "${f}.jpg" stdout -psm 0 | grep "Rotate: " | awk '{print $2}')
 	echo "Rotating image by ${rotation}"
-	mogrify -rotate "${rotation}"
+	mogrify -rotate "${rotation}" "${f}.jpg"
 
         # Try categorizing the image by a QR code
         get_category "${f}.jpg"
