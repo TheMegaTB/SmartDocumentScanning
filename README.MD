@@ -7,3 +7,6 @@ Dependencies
 * imagemagick
 * SANE
 * fdupes
+
+Installation:
+* apt-get install zbar-tools qrencode imagemagick sane
